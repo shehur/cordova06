@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <title>Firebase</title>
+        <style>
+            #cancelar, #salvar { width: 80px; }
+            input, #deletar { width: 165px; }
+        </style>
+        <script type="text/javascript" src="js/firebase.js"></script>
+        <script type="text/javascript" src="js/start.js"></script>
+    </head>
+    <body>
+        <br>
+        <center>
+            <h4>FIREBASE</h4>
+            <br>
+            <input type="hidden" id="codigo" value="-1" />
+            <input type="hidden" id="path" value="" />
+            <input type="text" id="nome" placeholder="Nome" /><br><br>
+            <input type="number" id="numero" placeholder="Número" /><br><br>
+            <input type="file" id="arquivo" /><br><br>
+            <button id="cancelar">Cancelar</button>
+            <button id="salvar">Salvar</button><br><br>
+            <button id="deletar">DELETAR</button><br><br>
+        </center>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/cadastro.js"></script>
+        <script type="text/javascript">
+            var uri = location.search.slice(1);
+            var query = uri.split('&');
+            var params = [];
+            query.forEach(function(item) {
+                var chaveValor = item.split('=');
+                var chave = chaveValor[0];
+                var valor = chaveValor[1];
+                params[chave] = valor;
+            });
+
+            Codigo = params['codigo'].trim();
+            if(Codigo.length <= 0) {
+                document.getElementById('codigo').value = -1;
+            }else {
+                document.getElementById('codigo').value = params['codigo'].trim(); 
+            }
+            document.getElementById('path').value = 
+            params['path'].replace('-n-', '?').replace('-e-', '&').replace('-i-', '=').trim();
+            document.getElementById('nome').value = 
+            params['nome'].replace('%20', ' ').replace('%20', ' ').replace('%20', ' ').trim();
+            document.getElementById('numero').value = parseInt(params['numero']);
+        </script>
+    </body>
+</html>
